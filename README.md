@@ -167,15 +167,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-- **Developer**: [Your Name]
+- **Developer**: wasi alsafa
 - **University**: Rajshahi University of Engineering & Technology (RUET)
 - **Project**: Student Marketplace Platform
 
 ## 📞 Support
 
 For support and questions:
-- Email: support@ruetmarketplace.com
-- Phone: +880 1234-567890
+- Email: wasialsafa025@gmail.com
+- Phone: 01760408330
 - Campus: RUET, Rajshahi, Bangladesh
 
 ---

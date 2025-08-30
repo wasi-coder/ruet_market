@@ -1,28 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <title>Register | Marketplace</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 20px 40px 0 40px;
+    }
+    .nav-bar a {
+      padding: 10px 26px;
+      background: #0074d9;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0,128,255,0.09);
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    }
+    .nav-bar a:hover {
+      background: #005fa3;
+      transform: scale(1.08);
+      box-shadow: 0 4px 24px rgba(0,128,255,0.18);
+    }
+    .register-card {
+      max-width: 370px;
+      margin: 60px auto 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+      padding: 36px 32px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .register-card h2 {
+      text-align: center;
+      color: #2ecc40;
+      margin-bottom: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .register-card input {
+      padding: 12px 14px;
+      border: 1.5px solid #e0eafc;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      font-size: 1.05em;
+    }
+    .register-card button {
+      margin-top: 8px;
+      padding: 11px 0;
+      background: #2ecc40;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-weight: 500;
+      font-size: 1.08em;
+      box-shadow: 0 2px 8px rgba(46,204,64,0.13);
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+      cursor: pointer;
+    }
+    .register-card button:hover {
+      background: #27ae60;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(46,204,64,0.19);
+    }
+    .register-card .extra-links {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 0.97em;
+    }
+    .register-card .extra-links a {
+      color: #2ecc40;
+      text-decoration: underline;
+      margin: 0 7px;
+      transition: color 0.15s;
+    }
+    .register-card .extra-links a:hover {
+      color: #27ae60;
+    }
+    #register-msg {
+      text-align: center;
+      margin-top: 10px;
+      color: #db2c2c;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>RUET Marketplace</h1>
-        <nav>
-            <a href="index.html">Home</a>
-        </nav>
-    </header>
-    <main>
-        <h2>Register (RUETians only)</h2>
-        <form id="register-form">
-            <input type="text" name="name" placeholder="Full Name" required /><br>
-            <input type="email" name="email" placeholder="Email" required /><br>
-            <input type="password" name="password" placeholder="Password" required /><br>
-            <input type="text" name="ruet_id" placeholder="RUET ID" required /><br>
-            <button type="submit">Register</button>
-        </form>
-        <div id="register-msg"></div>
-    </main>
-    <script src="js/register.js"></script>
+  <div class="nav-bar">
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+  </div>
+
+  <div class="register-card">
+    <h2>Register</h2>
+    <form id="register-form" autocomplete="off">
+      <input type="text" name="name" required placeholder="Full Name">
+      <input type="email" name="email" required placeholder="Email">
+      <input type="password" name="password" required placeholder="Password">
+      <input type="text" name="ruet_id" required placeholder="RUET ID">
+      <button type="submit">Register</button>
+    </form>
+    <div id="register-msg"></div>
+    <div class="extra-links">
+      Already have an account?
+      <a href="login.html">Login</a>
+      <br>
+      <a href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <script src="js/register.js"></script>
 </body>
 </html>

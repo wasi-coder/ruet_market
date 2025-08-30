@@ -59,3 +59,87 @@ h2 {
     color: #d32f2f;
     font-weight: bold;
 }
+
+form {
+  max-width: 350px;
+  margin: 48px auto;
+  padding: 28px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+form h2 {
+  text-align: center;
+}
+form input, form button {
+  width: 100%;
+}
+form button {
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,128,255,0.09);
+  transition: transform 0.18s, box-shadow 0.18s;
+  cursor: pointer;
+}
+form button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 4px 24px rgba(0,128,255,0.25);
+}
+body {
+  background: #f6f8fa;
+}
+
+body {
+  background: #f6f8fa;
+}
+
+form {
+  max-width: 350px;
+  margin: 48px auto;          /* Centers the form horizontally */
+  padding: 28px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form h2, form label {
+  text-align: center;
+}
+
+form input, form button {
+  width: 100%;
+}
+
+form button {
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,128,255,0.09);
+  transition: transform 0.18s, box-shadow 0.18s;
+  cursor: pointer;
+}
+
+form button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 4px 24px rgba(0,128,255,0.25);
+}
+
+form div#login-msg, form div#register-msg {
+  text-align: center;
+  margin-top: 8px;
+}

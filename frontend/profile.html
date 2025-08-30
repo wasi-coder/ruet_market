@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - RUET Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 100px auto 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem auto;
+            border: 4px solid white;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-avatar .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #64748b;
+            background: #e2e8f0;
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-dept {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .profile-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .profile-section {
+            margin-bottom: 2rem;
+        }
+        
+        .profile-section h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .info-value {
+            color: #1e293b;
+            font-size: 1rem;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .edit-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #2563eb;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-store"></i>
+                <span>RUET Marketplace</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="post-product.html" class="nav-link">Sell/Rent</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <!-- This will be populated by JavaScript -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        
+        <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">
+                <!-- Avatar will be populated by JavaScript -->
+            </div>
+            <div class="profile-name" id="profileName">Loading...</div>
+            <div class="profile-dept" id="profileDept">Loading...</div>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-section">
+                <h3><i class="fas fa-user"></i> Personal Information</h3>
+                <div class="profile-info">
+                    <div class="info-item">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value" id="fullName">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Email</div>
+                        <div class="info-value" id="email">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">RUET ID</div>
+                        <div class="info-value" id="ruetId">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Department</div>
+                        <div class="info-value" id="department">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Phone</div>
+                        <div class="info-value" id="phone">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Member Since</div>
+                        <div class="info-value" id="memberSince">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h3><i class="fas fa-box"></i> Marketplace Activity</h3>
+                <div class="profile-info">
+                    <div class="info-item">
+                        <div class="info-label">Products Listed</div>
+                        <div class="info-value" id="productsCount">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Buy Requests</div>
+                        <div class="info-value" id="buyRequestsCount">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <button class="edit-btn" onclick="editProfile()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Load profile data
+        function loadProfile() {
+            const user = auth.getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update avatar
+            const avatarDiv = document.getElementById('profileAvatar');
+            if (user.avatar) {
+                avatarDiv.innerHTML = `<img src="${user.avatar}" alt="${user.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
+            } else {
+                avatarDiv.innerHTML = `<div class="avatar-placeholder">${user.name.charAt(0).toUpperCase()}</div>`;
+            }
+            
+            // Update profile information
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileDept').textContent = user.department;
+            document.getElementById('fullName').textContent = user.name;
+            document.getElementById('email').textContent = user.email || 'N/A';
+            document.getElementById('ruetId').textContent = user.ruet_id;
+            document.getElementById('department').textContent = user.department;
+            document.getElementById('phone').textContent = user.phone || 'N/A';
+            document.getElementById('memberSince').textContent = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
+            
+            // Load marketplace activity (placeholder for now)
+            document.getElementById('productsCount').textContent = '0';
+            document.getElementById('buyRequestsCount').textContent = '0';
+        }
+        
+        // Edit profile function
+        function editProfile() {
+            alert('Profile editing feature coming soon!');
+        }
+        
+        // Load profile when page loads
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>

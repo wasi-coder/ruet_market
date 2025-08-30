@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - RUET Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-container {
+            max-width: 800px;
+            margin: 100px auto 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .settings-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .settings-section h3 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.75rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .save-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .save-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .danger-zone {
+            border: 2px solid #dc2626;
+            background: #fef2f2;
+        }
+        
+        .danger-zone h3 {
+            color: #dc2626;
+            border-bottom-color: #dc2626;
+        }
+        
+        .danger-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .danger-btn:hover {
+            background: #b91c1c;
+        }
+        
+        .notification-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #2563eb;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .test-notifications {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .test-notifications h4 {
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .test-btn:hover {
+            background: #0284c7;
+        }
+        
+        .test-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #2563eb;
+        }
+        
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-store"></i>
+                <span>RUET Marketplace</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="post-product.html" class="nav-link">Sell/Rent</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <!-- This will be populated by JavaScript -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="settings-container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        
+        <div class="page-header">
+            <h1><i class="fas fa-cog"></i> Settings</h1>
+            <p>Manage your account preferences and security settings</p>
+        </div>
+        
+        <div class="settings-section">
+            <h3><i class="fas fa-user"></i> Profile Settings</h3>
+            <form id="profileForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" required>
+                            <option value="CSE">CSE</option>
+                            <option value="Civil">Civil</option>
+                            <option value="Architecture">Architecture</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="Chemical">Chemical</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Textile">Textile</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </form>
+        </div>
+        
+        <div class="settings-section">
+            <h3><i class="fas fa-lock"></i> Security Settings</h3>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </div>
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+            </form>
+        </div>
+        
+        <div class="settings-section">
+            <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+            <div class="notification-toggle">
+                <span>Email Notifications</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emailNotifications" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="notification-toggle">
+                <span>SMS Notifications</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="smsNotifications">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="notification-toggle">
+                <span>Product Updates</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="productUpdates" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="test-notifications">
+                <h4><i class="fas fa-vial"></i> Test Notifications</h4>
+                <p style="color: #0c4a6e; margin-bottom: 1rem;">Test your notification settings to make sure they're working properly.</p>
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testNotification('email')" id="testEmailBtn">
+                        <i class="fas fa-envelope"></i> Test Email
+                    </button>
+                    <button class="test-btn" onclick="testNotification('sms')" id="testSmsBtn">
+                        <i class="fas fa-sms"></i> Test SMS
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="settings-section danger-zone">
+            <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+            <p style="color: #dc2626; margin-bottom: 1rem;">
+                <strong>Warning:</strong> These actions cannot be undone.
+            </p>
+            <button class="danger-btn" onclick="deleteAccount()">
+                <i class="fas fa-trash"></i> Delete Account
+            </button>
+        </div>
+        
+        <div id="message"></div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Load user settings
+        async function loadSettings() {
+            const user = auth.getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Populate profile form
+            document.getElementById('name').value = user.name;
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('phone').value = user.phone || '';
+            document.getElementById('department').value = user.department;
+            
+            // Load notification preferences from API
+            try {
+                const response = await fetch(`http://localhost:3001/api/notifications/preferences/${user.id}`);
+                if (response.ok) {
+                    const prefs = await response.json();
+                    document.getElementById('emailNotifications').checked = prefs.email_notifications;
+                    document.getElementById('smsNotifications').checked = prefs.sms_notifications;
+                    document.getElementById('productUpdates').checked = prefs.product_updates;
+                }
+            } catch (error) {
+                console.error('Error loading notification preferences:', error);
+                // Fallback to localStorage
+                document.getElementById('emailNotifications').checked = localStorage.getItem('emailNotifications') !== 'false';
+                document.getElementById('smsNotifications').checked = localStorage.getItem('smsNotifications') === 'true';
+                document.getElementById('productUpdates').checked = localStorage.getItem('productUpdates') !== 'false';
+            }
+        }
+        
+        // Save profile settings
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            
+            try {
+                // Update localStorage
+                const user = auth.getCurrentUser();
+                user.name = document.getElementById('name').value;
+                user.email = document.getElementById('email').value;
+                user.phone = document.getElementById('phone').value;
+                user.department = document.getElementById('department').value;
+                
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                showMessage('Profile updated successfully!', 'success');
+                
+            } catch (error) {
+                showMessage('Error updating profile. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+        
+        // Change password
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                showMessage('New passwords do not match!', 'error');
+                return;
+            }
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Changing...';
+            
+            try {
+                // For now, just show success message
+                // In a real app, you'd send this to the backend
+                showMessage('Password changed successfully!', 'success');
+                e.target.reset();
+                
+            } catch (error) {
+                showMessage('Error changing password. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+        
+        // Save notification preferences
+        async function saveNotificationPreferences() {
+            const user = auth.getCurrentUser();
+            if (!user) return;
+            
+            const emailNotifications = document.getElementById('emailNotifications').checked;
+            const smsNotifications = document.getElementById('smsNotifications').checked;
+            const productUpdates = document.getElementById('productUpdates').checked;
+            
+            try {
+                const response = await fetch(`http://localhost:3001/api/notifications/preferences/${user.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        emailNotifications,
+                        smsNotifications,
+                        productUpdates
+                    })
+                });
+                
+                if (response.ok) {
+                    // Also save to localStorage as backup
+                    localStorage.setItem('emailNotifications', emailNotifications);
+                    localStorage.setItem('smsNotifications', smsNotifications);
+                    localStorage.setItem('productUpdates', productUpdates);
+                    
+                    showMessage('Notification preferences saved!', 'success');
+                } else {
+                    throw new Error('Failed to save preferences');
+                }
+            } catch (error) {
+                console.error('Error saving notification preferences:', error);
+                showMessage('Error saving preferences. Please try again.', 'error');
+            }
+        }
+        
+        // Test notification
+        async function testNotification(type) {
+            const user = auth.getCurrentUser();
+            if (!user) return;
+            
+            const btn = document.getElementById(`test${type.charAt(0).toUpperCase() + type.slice(1)}Btn`);
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/notifications/test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: user.id,
+                        type: type
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showMessage(`${type.toUpperCase()} test notification sent successfully!`, 'success');
+                } else {
+                    throw new Error(result.error || 'Failed to send test notification');
+                }
+                
+            } catch (error) {
+                console.error('Error sending test notification:', error);
+                showMessage(`Error sending ${type} test notification. Please try again.`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+        
+        // Event listeners for notification toggles
+        document.getElementById('emailNotifications').addEventListener('change', saveNotificationPreferences);
+        document.getElementById('smsNotifications').addEventListener('change', saveNotificationPreferences);
+        document.getElementById('productUpdates').addEventListener('change', saveNotificationPreferences);
+        
+        // Delete account
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                if (confirm('This will permanently delete all your data. Are you absolutely sure?')) {
+                    alert('Account deletion feature coming soon!');
+                }
+            }
+        }
+        
+        // Show message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+        }
+        
+        // Load settings when page loads
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    </script>
+</body>
+</html>

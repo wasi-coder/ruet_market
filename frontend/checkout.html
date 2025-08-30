@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - RUET Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checkout-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .product-details h3 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .seller-info {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .seller-info h3 {
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .contact-item i {
+            color: #0ea5e9;
+            width: 20px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        
+        .btn-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #047857;
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+        
+        .back-link:hover {
+            color: #2563eb;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-confirmed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Product
+        </a>
+        
+        <div class="header">
+            <h1><i class="fas fa-shopping-cart"></i> Checkout</h1>
+            <p>Complete your purchase by contacting the seller</p>
+        </div>
+        
+        <div class="checkout-card">
+            <h2>Order Summary</h2>
+            <div class="product-info" id="productInfo">
+                <!-- Product info will be loaded here -->
+            </div>
+            
+            <div class="seller-info">
+                <h3><i class="fas fa-user"></i> Seller Information</h3>
+                <div class="contact-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="sellerName">Loading...</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <span id="sellerDepartment">Loading...</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span id="sellerPhone">Loading...</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-id-card"></i>
+                    <span id="sellerRuetId">Loading...</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="tel:" id="callBtn" class="btn btn-primary">
+                    <i class="fas fa-phone"></i>
+                    Call Seller
+                </a>
+                <a href="https://wa.me/" id="whatsappBtn" class="btn btn-success" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+                <button class="btn btn-outline" onclick="copyContactInfo()">
+                    <i class="fas fa-copy"></i>
+                    Copy Contact Info
+                </button>
+            </div>
+        </div>
+        
+        <div class="checkout-card">
+            <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+            <ul style="padding-left: 1.5rem; color: #64748b;">
+                <li>Contact the seller directly to arrange pickup and payment</li>
+                <li>Payment is handled in person - no online transactions</li>
+                <li>Meet in a safe, public location on campus</li>
+                <li>Verify the product condition before finalizing the deal</li>
+                <li>Keep all communication records for reference</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        
+        if (!productId) {
+            alert('No product ID provided');
+            window.location.href = 'index.html';
+        }
+        
+        // Load product and seller information
+        async function loadProductInfo() {
+            try {
+                const response = await fetch(`http://localhost:3001/api/products/${productId}`);
+                const product = await response.json();
+                
+                if (!product) {
+                    alert('Product not found');
+                    window.location.href = 'index.html';
+                    return;
+                }
+                
+                displayProductInfo(product);
+                setupContactButtons(product);
+                
+            } catch (error) {
+                console.error('Error loading product:', error);
+                alert('Error loading product information');
+            }
+        }
+        
+        // Display product information
+        function displayProductInfo(product) {
+            const productInfo = document.getElementById('productInfo');
+            const imageUrl = product.image || 'https://via.placeholder.com/100x100?text=No+Image';
+            
+            productInfo.innerHTML = `
+                <img src="${imageUrl}" alt="${product.title}" class="product-image">
+                <div class="product-details">
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <div class="price">৳${parseFloat(product.price).toFixed(2)}</div>
+                    <span class="status-badge status-pending">${product.type === 'rent' ? 'For Rent' : 'For Sale'}</span>
+                </div>
+            `;
+            
+            // Update seller information
+            document.getElementById('sellerName').textContent = product.seller_name || 'N/A';
+            document.getElementById('sellerDepartment').textContent = product.seller_department || 'N/A';
+            document.getElementById('sellerPhone').textContent = product.contact_phone || product.seller_phone || 'N/A';
+            document.getElementById('sellerRuetId').textContent = 'RUET ID: ' + (product.seller_ruet_id || 'N/A');
+        }
+        
+        // Setup contact buttons
+        function setupContactButtons(product) {
+            const phone = product.contact_phone || product.seller_phone;
+            const callBtn = document.getElementById('callBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            if (phone) {
+                callBtn.href = `tel:${phone}`;
+                whatsappBtn.href = `https://wa.me/${phone.replace(/\D/g, '')}`;
+            } else {
+                callBtn.disabled = true;
+                whatsappBtn.disabled = true;
+                callBtn.style.opacity = '0.5';
+                whatsappBtn.style.opacity = '0.5';
+            }
+        }
+        
+        // Copy contact information
+        function copyContactInfo() {
+            const sellerName = document.getElementById('sellerName').textContent;
+            const sellerPhone = document.getElementById('sellerPhone').textContent;
+            const sellerDept = document.getElementById('sellerDepartment').textContent;
+            
+            const contactInfo = `Seller: ${sellerName}\nDepartment: ${sellerDept}\nPhone: ${sellerPhone}`;
+            
+            navigator.clipboard.writeText(contactInfo).then(() => {
+                alert('Contact information copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = contactInfo;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Contact information copied to clipboard!');
+            });
+        }
+        
+        // Load product info when page loads
+        document.addEventListener('DOMContentLoaded', loadProductInfo);
+    </script>
+</body>
+</html>

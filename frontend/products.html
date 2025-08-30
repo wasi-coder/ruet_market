@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - RUET Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f8fafc;
+        }
+        
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .filters {
+            background: white;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .filter-group select, .filter-group input {
+            padding: 0.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+        
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        
+        .btn-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-store"></i>
+                RUET Marketplace
+            </div>
+            <a href="index.html" style="color: #6b7280; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </nav>
+
+    <div class="filters">
+        <h2 style="margin-bottom: 1rem; color: #1f2937;">Filter Products</h2>
+        <div class="filter-row">
+            <div class="filter-group">
+                <label for="departmentFilter">Department</label>
+                <select id="departmentFilter">
+                    <option value="">All Departments</option>
+                    <option value="CSE">CSE</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Architecture">Architecture</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Chemical">Chemical</option>
+                    <option value="Industrial">Industrial</option>
+                    <option value="Textile">Textile</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="categoryFilter">Category</label>
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Books">Books</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Bikes">Bikes</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="typeFilter">Type</label>
+                <select id="typeFilter">
+                    <option value="">All Types</option>
+                    <option value="sell">For Sale</option>
+                    <option value="rent">For Rent</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="searchInput">Search</label>
+                <input type="text" id="searchInput" placeholder="Search products...">
+            </div>
+            
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button class="btn" onclick="applyFilters()">
+                    <i class="fas fa-filter"></i> Apply Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="products-container">
+        <div id="productsGrid" class="products-grid">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>Loading products...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allProducts = [];
+        let filteredProducts = [];
+
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', loadProducts);
+
+        // Load all products
+        async function loadProducts() {
+            try {
+                const response = await fetch('http://localhost:3001/api/products');
+                allProducts = await response.json();
+                filteredProducts = [...allProducts];
+                displayProducts();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                document.getElementById('productsGrid').innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem; color: #dc2626;"></i>
+                        <p>Error loading products. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const department = document.getElementById('departmentFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            const type = document.getElementById('typeFilter').value;
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredProducts = allProducts.filter(product => {
+                const matchesDepartment = !department || product.department === department;
+                const matchesCategory = !category || product.category === category;
+                const matchesType = !type || product.type === type;
+                const matchesSearch = !search || 
+                    product.title.toLowerCase().includes(search) ||
+                    product.description.toLowerCase().includes(search) ||
+                    product.seller_name.toLowerCase().includes(search);
+
+                return matchesDepartment && matchesCategory && matchesType && matchesSearch;
+            });
+
+            displayProducts();
+        }
+
+        // Display products
+        function displayProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-box-open" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>No products found matching your criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            productsGrid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" onclick="viewProduct(${product.id})">
+                    <img src="${product.image || 'https://via.placeholder.com/300x200?text=No+Image'}" 
+                         alt="${product.title}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">৳${parseFloat(product.price).toFixed(2)}</div>
+                        <div class="product-meta">
+                            <span><i class="fas fa-user"></i> ${product.seller_name}</span>
+                            <span><i class="fas fa-building"></i> ${product.department || 'N/A'}</span>
+                        </div>
+                        <div class="product-meta">
+                            <span><i class="fas fa-tag"></i> ${product.type === 'rent' ? 'For Rent' : 'For Sale'}</span>
+                            <span><i class="fas fa-star"></i> ${product.category}</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); viewProduct(${product.id})">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // View product details
+        function viewProduct(productId) {
+            window.location.href = `product.html?id=${productId}`;
+        }
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                applyFilters();
+            }
+        });
+
+        // Auto-apply filters when selections change
+        document.getElementById('departmentFilter').addEventListener('change', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('typeFilter').addEventListener('change', applyFilters);
+    </script>
+</body>
+</html>

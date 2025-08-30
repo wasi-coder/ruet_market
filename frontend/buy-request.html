@@ -2,27 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Post Buy Request</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Post Buy Request - RUET Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header>
-        <h1>RUET Marketplace</h1>
-        <nav>
-            <a href="index.html">Home</a>
-        </nav>
-    </header>
-    <main>
-        <h2>Post Buy Request</h2>
-        <form id="buy-request-form">
-            <input type="text" name="title" placeholder="What do you want to buy?" required /><br>
-            <textarea name="description" placeholder="Details" required></textarea><br>
-            <button type="submit">Post Request</button>
-        </form>
-        <div id="buy-request-msg"></div>
-    </main>
+<body style="background: #0f0f0f;">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-store"></i>
+                    <span>RUET Marketplace</span>
+                </a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#categories" class="nav-link">Categories</a>
+                <a href="index.html#departments" class="nav-link">Departments</a>
+                <a href="post-product.html" class="nav-link">Sell/Rent</a>
+                <a href="buy-requests.html" class="nav-link">Buy Requests</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <!-- This will be populated by JavaScript -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+        <div class="post-header" style="text-align: center; margin-bottom: 2rem; padding: 2rem; background: #1a1a1a; color: #e0e0e0; border-radius: 8px; border: 2px solid #4682B4; box-shadow: 4px 4px 0px #000;">
+            <h1 style="font-family: 'Press Start 2P', cursive; color: #4ecdc4; text-shadow: 2px 2px 0px #000; margin-bottom: 0.5rem;"><i class="fas fa-plus-circle" style="color: #4682B4;"></i> Post Buy Request</h1>
+            <p style="color: #aaa; font-family: 'Press Start 2P', cursive; font-size: 0.8rem;">Let others know what you're looking for</p>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 2rem; border-radius: 8px; box-shadow: 4px 4px 0px #000; border: 2px solid #333;">
+            <form id="buy-request-form">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e0e0e0; font-family: 'Press Start 2P', cursive; font-size: 0.7rem;">What do you want to buy? *</label>
+                    <input type="text" name="title" placeholder="e.g., Engineering Calculator, Data Structures Book" required
+                           style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 4px; font-size: 0.9rem; background: #2d2d2d; color: #e0e0e0; box-shadow: 2px 2px 0px #000; transition: border-color 0.3s ease;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e0e0e0; font-family: 'Press Start 2P', cursive; font-size: 0.7rem;">Details *</label>
+                    <textarea name="description" placeholder="Describe what you're looking for in detail..." required
+                              style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 4px; font-size: 0.9rem; resize: vertical; min-height: 120px; background: #2d2d2d; color: #e0e0e0; box-shadow: 2px 2px 0px #000; transition: border-color 0.3s ease;"></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e0e0e0; font-family: 'Press Start 2P', cursive; font-size: 0.7rem;">Category *</label>
+                        <select name="category" required style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 4px; font-size: 0.9rem; background: #2d2d2d; color: #e0e0e0; box-shadow: 2px 2px 0px #000; transition: border-color 0.3s ease;">
+                            <option value="">Select Category</option>
+                            <option value="Books">Books</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Bikes">Bikes</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e0e0e0; font-family: 'Press Start 2P', cursive; font-size: 0.7rem;">Max Price (BDT)</label>
+                        <input type="number" name="max_price" placeholder="500" min="0" step="0.01"
+                               style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 4px; font-size: 0.9rem; background: #2d2d2d; color: #e0e0e0; box-shadow: 2px 2px 0px #000; transition: border-color 0.3s ease;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e0e0e0; font-family: 'Press Start 2P', cursive; font-size: 0.7rem;">Image (optional)</label>
+                    <div id="image-upload-area" style="width: 100%; padding: 2rem; border: 2px dashed #333; border-radius: 4px; text-align: center; transition: border-color 0.3s ease; cursor: pointer; background: #2d2d2d; box-shadow: 2px 2px 0px #000;">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #666; margin-bottom: 0.5rem;"></i>
+                        <p style="color: #aaa; margin: 0; font-family: 'Press Start 2P', cursive; font-size: 0.6rem;">Drag & drop an image here or click to select</p>
+                        <p style="color: #666; font-size: 0.5rem; margin: 0.5rem 0 0 0; font-family: 'Press Start 2P', cursive;">Supported formats: JPG, PNG, GIF (max 5MB)</p>
+                        <input type="file" id="image-input" name="image" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="image-preview" style="margin-top: 1rem; display: none;">
+                        <img id="preview-img" src="" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px; box-shadow: 2px 2px 0px #000; border: 2px solid #333;">
+                        <button type="button" id="remove-image" style="margin-left: 1rem; padding: 0.5rem 1rem; background: #ef4444; color: white; border: 2px solid #333; border-radius: 4px; cursor: pointer; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; box-shadow: 2px 2px 0px #000;">Remove</button>
+                    </div>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e0e0e0; font-family: 'Press Start 2P', cursive; font-size: 0.7rem;">Contact Phone (optional)</label>
+                    <input type="tel" name="contact_phone" placeholder="+880 17XXXXXXXX"
+                           style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 4px; font-size: 0.9rem; background: #2d2d2d; color: #e0e0e0; box-shadow: 2px 2px 0px #000; transition: border-color 0.3s ease;">
+                </div>
+                <button type="submit" style="width: 100%; padding: 1rem; background: #4682B4; color: white; border: 2px solid #333; border-radius: 4px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Press Start 2P', cursive; box-shadow: 2px 2px 0px #000; transition: all 0.2s ease;">
+                    <i class="fas fa-paper-plane"></i> Post Buy Request
+                </button>
+            </form>
+            <div id="buy-request-msg" style="margin-top: 1rem; text-align: center;"></div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
     <script src="js/buy-request.js"></script>
     <script src="js/navbar.js"></script>
-
 </body>
 </html>

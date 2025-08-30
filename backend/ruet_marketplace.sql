@@ -40,9 +40,21 @@ CREATE TABLE buy_requests (
     description TEXT,
     category ENUM('Books', 'Electronics', 'Bikes', 'Furniture', 'Clothing', 'Sports', 'Other') NOT NULL,
     max_price DECIMAL(10,2),
+    image VARCHAR(500),
     user_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Buy Request Replies table
+CREATE TABLE buy_request_replies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    buy_request_id INT NOT NULL,
+    replier_id INT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (buy_request_id) REFERENCES buy_requests(id) ON DELETE CASCADE,
+    FOREIGN KEY (replier_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Notifications table

@@ -5,41 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products - RUET Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f8fafc;
-        }
-        
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2563eb;
-        }
-        
+        /* Additional styles specific to products page */
         .filters {
             background: white;
             padding: 2rem;
@@ -48,7 +19,7 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        
+
         .filter-row {
             display: flex;
             gap: 1rem;
@@ -56,148 +27,70 @@
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .filter-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
-        
+
         .filter-group label {
             font-weight: 600;
             color: #374151;
         }
-        
+
         .filter-group select, .filter-group input {
             padding: 0.5rem;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
             font-size: 1rem;
         }
-        
-        .btn {
-            padding: 0.5rem 1rem;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        .btn:hover {
-            background: #1d4ed8;
-        }
-        
+
         .products-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .product-info {
-            padding: 1.5rem;
-        }
-        
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #1f2937;
-        }
-        
-        .product-price {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #2563eb;
-            margin-bottom: 0.5rem;
-        }
-        
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-        }
-        
+
         .product-actions {
             display: flex;
             gap: 0.5rem;
             margin-top: 1rem;
         }
-        
-        .btn-outline {
-            background: transparent;
-            color: #2563eb;
-            border: 2px solid #2563eb;
-        }
-        
-        .btn-outline:hover {
-            background: #2563eb;
-            color: white;
-        }
-        
-        .no-products {
-            text-align: center;
-            padding: 3rem;
-            color: #6b7280;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: #6b7280;
-        }
-        
+
         @media (max-width: 768px) {
             .filter-row {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-store"></i>
-                RUET Marketplace
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-store"></i>
+                    <span>RUET Marketplace</span>
+                </a>
             </div>
-            <a href="index.html" style="color: #6b7280; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#categories" class="nav-link">Categories</a>
+                <a href="index.html#departments" class="nav-link">Departments</a>
+                <a href="post-product.html" class="nav-link">Sell/Rent</a>
+                <a href="buy-requests.html" class="nav-link">Buy Requests</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <!-- This will be populated by JavaScript -->
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -243,10 +136,19 @@
             </div>
             
             <div class="filter-group">
+                <label for="sortBy">Sort by Cost</label>
+                <select id="sortBy">
+                    <option value="">Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
                 <label for="searchInput">Search</label>
                 <input type="text" id="searchInput" placeholder="Search products...">
             </div>
-            
+
             <div class="filter-group">
                 <label>&nbsp;</label>
                 <button class="btn" onclick="applyFilters()">
@@ -265,12 +167,17 @@
         </div>
     </div>
 
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
     <script>
         let allProducts = [];
         let filteredProducts = [];
 
         // Load products on page load
-        document.addEventListener('DOMContentLoaded', loadProducts);
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            handleUrlParameters();
+        });
 
         // Load all products
         async function loadProducts() {
@@ -278,7 +185,7 @@
                 const response = await fetch('http://localhost:3001/api/products');
                 allProducts = await response.json();
                 filteredProducts = [...allProducts];
-                displayProducts();
+                // Don't display products immediately, wait for URL parameter handling
             } catch (error) {
                 console.error('Error loading products:', error);
                 document.getElementById('productsGrid').innerHTML = `
@@ -290,24 +197,64 @@
             }
         }
 
+        // Handle URL parameters for search and filters
+        function handleUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Handle search parameter
+            const searchQuery = urlParams.get('search');
+            if (searchQuery) {
+                document.getElementById('searchInput').value = decodeURIComponent(searchQuery);
+            }
+
+            // Handle department parameter
+            const department = urlParams.get('department');
+            if (department) {
+                document.getElementById('departmentFilter').value = department;
+            }
+
+            // Handle category parameter
+            const category = urlParams.get('category');
+            if (category) {
+                document.getElementById('categoryFilter').value = category;
+            }
+
+            // Apply filters if any parameters were set
+            if (searchQuery || department || category) {
+                setTimeout(() => {
+                    applyFilters();
+                }, 100); // Small delay to ensure products are loaded
+            } else {
+                displayProducts(); // Display all products if no filters
+            }
+        }
+
         // Apply filters
         function applyFilters() {
             const department = document.getElementById('departmentFilter').value;
             const category = document.getElementById('categoryFilter').value;
             const type = document.getElementById('typeFilter').value;
             const search = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortBy').value;
 
             filteredProducts = allProducts.filter(product => {
                 const matchesDepartment = !department || product.department === department;
                 const matchesCategory = !category || product.category === category;
                 const matchesType = !type || product.type === type;
-                const matchesSearch = !search || 
+                const matchesSearch = !search ||
                     product.title.toLowerCase().includes(search) ||
                     product.description.toLowerCase().includes(search) ||
                     product.seller_name.toLowerCase().includes(search);
 
                 return matchesDepartment && matchesCategory && matchesType && matchesSearch;
             });
+
+            // Apply sorting
+            if (sortBy === 'price-low') {
+                filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+            } else if (sortBy === 'price-high') {
+                filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+            }
 
             displayProducts();
         }
@@ -367,6 +314,34 @@
         document.getElementById('departmentFilter').addEventListener('change', applyFilters);
         document.getElementById('categoryFilter').addEventListener('change', applyFilters);
         document.getElementById('typeFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', applyFilters);
+
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        // Set initial theme
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
     </script>
     <script src="js/navbar.js"></script>
 

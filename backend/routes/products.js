@@ -1,6 +1,37 @@
 const express = require('express');
 const db = require('../db');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB limit
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = /jpeg|jpg|png|gif/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype);
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Only image files are allowed!'));
+        }
+    }
+});
 
 // Get all products with optional department filter
 router.get('/', async (req, res) => {
@@ -52,31 +83,45 @@ router.get('/:id', async (req, res) => {
 });
 
 // Add product
-router.post('/', async (req, res) => {
-    const { 
-        user_id, 
-        title, 
-        description, 
-        price, 
-        type, 
-        category, 
-        department, 
-        condition_rating, 
-        image,
-        contact_phone,
-        contact_name
+router.post('/', upload.single('image'), async (req, res) => {
+    const {
+        user_id,
+        title,
+        description,
+        price,
+        type,
+        category,
+        department,
+        condition,
+        contactPhone
     } = req.body;
-    
+
     if (!user_id || !title || !description || !price || !type || !category || !department) {
         return res.status(400).json({ error: "All required fields must be provided" });
     }
-    
+
+    // Handle image upload
+    let imagePath = null;
+    if (req.file) {
+        imagePath = `/uploads/${req.file.filename}`;
+    } else if (req.body.image) {
+        // Fallback to URL if no file uploaded
+        imagePath = req.body.image;
+    }
+
     try {
-        await db.query(
-            'INSERT INTO products (user_id, title, description, price, type, category, department, condition_rating, image, contact_phone, contact_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [user_id, title, description, price, type, category, department, condition_rating || 'Good', image || '', contact_phone || '', contact_name || '']
+        const [result] = await db.query(
+            'INSERT INTO products (user_id, title, description, price, type, category, department, condition_rating, image, contact_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [user_id, title, description, price, type, category, department, condition || 'Good', imagePath, contactPhone || '']
         );
-        res.json({ message: "Product added successfully" });
+
+        // Get the inserted product
+        const [newProduct] = await db.query(
+            'SELECT products.*, users.name as seller_name FROM products JOIN users ON products.user_id = users.id WHERE products.id = ?',
+            [result.insertId]
+        );
+
+        res.json({ message: "Product added successfully", product: newProduct[0] });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -101,6 +146,86 @@ router.get('/category/:category', async (req, res) => {
         );
         res.json(rows);
     } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Update product
+router.put('/:id', upload.single('image'), async (req, res) => {
+    const { id } = req.params;
+    const {
+        title,
+        description,
+        price,
+        type,
+        category,
+        department,
+        condition,
+        contactPhone
+    } = req.body;
+
+    if (!title || !description || !price || !type || !category || !department) {
+        return res.status(400).json({ error: "All required fields must be provided" });
+    }
+
+    try {
+        // Check if product exists and belongs to user
+        const [existingProduct] = await db.query('SELECT * FROM products WHERE id = ?', [id]);
+        if (existingProduct.length === 0) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        // Handle image upload
+        let imagePath = existingProduct[0].image; // Keep existing image by default
+        if (req.file) {
+            imagePath = `/uploads/${req.file.filename}`;
+        } else if (req.body.image && req.body.image !== existingProduct[0].image) {
+            // Update with new URL if provided
+            imagePath = req.body.image;
+        }
+
+        await db.query(
+            'UPDATE products SET title = ?, description = ?, price = ?, type = ?, category = ?, department = ?, condition_rating = ?, image = ?, contact_phone = ? WHERE id = ?',
+            [title, description, price, type, category, department, condition || 'Good', imagePath, contactPhone || '', id]
+        );
+
+        // Get the updated product
+        const [updatedProduct] = await db.query(
+            'SELECT products.*, users.name as seller_name FROM products JOIN users ON products.user_id = users.id WHERE products.id = ?',
+            [id]
+        );
+
+        res.json({ message: "Product updated successfully", product: updatedProduct[0] });
+    } catch (err) {
+        console.error('Update error:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Delete product
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    console.log('DELETE request for product ID:', id);
+
+    try {
+        // Check if product exists
+        const [existingProduct] = await db.query('SELECT * FROM products WHERE id = ?', [id]);
+        console.log('Existing product check:', existingProduct);
+
+        if (existingProduct.length === 0) {
+            console.log('Product not found');
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        // Delete the product
+        const [deleteResult] = await db.query('DELETE FROM products WHERE id = ?', [id]);
+        console.log('Delete result:', deleteResult);
+
+        console.log('Product deleted successfully');
+        res.json({ message: "Product deleted successfully" });
+    } catch (err) {
+        console.error('Delete error:', err);
         res.status(500).json({ error: err.message });
     }
 });

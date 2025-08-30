@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RUET Marketplace - Buy, Sell & Rent</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,18 +15,30 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <i class="fas fa-store"></i>
-        <span>RUET Marketplace</span>
+          <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fas fa-store"></i>
+              <span>RUET Marketplace</span>
+          </a>
       </div>
-      <div class="nav-menu">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#categories" class="nav-link">Categories</a>
-        <a href="#departments" class="nav-link">Departments</a>
-        <a href="post-product.html" class="nav-link">Sell/Rent</a>
-        <a href="buy-requests.html" class="nav-link">Buy Requests</a>
+      <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+      </div>
+      <div class="nav-menu" id="navMenu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="index.html#categories" class="nav-link">Categories</a>
+          <a href="index.html#departments" class="nav-link">Departments</a>
+          <a href="post-product.html" class="nav-link">Sell/Rent</a>
+          <a href="buy-requests.html" class="nav-link">Buy Requests</a>
       </div>
       <div class="nav-auth" id="navAuth">
         <!-- This will be populated by JavaScript -->
+      </div>
+      <div class="theme-toggle">
+        <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
       </div>
     </div>
   </nav>
@@ -77,6 +92,37 @@
   <script src="js/auth.js"></script>
   <script src="js/index.js"></script>
   <script src="js/navbar.js"></script>
+  <script src="js/tilted-cards.js"></script>
+  <script>
+      // Theme Toggle Functionality
+      document.addEventListener('DOMContentLoaded', () => {
+          const themeToggle = document.getElementById('themeToggle');
+          const currentTheme = localStorage.getItem('theme') || 'light';
+
+          // Set initial theme
+          document.documentElement.setAttribute('data-theme', currentTheme);
+          updateThemeIcon(currentTheme);
+
+          // Toggle theme on button click
+          themeToggle.addEventListener('click', () => {
+              const currentTheme = document.documentElement.getAttribute('data-theme');
+              const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+              document.documentElement.setAttribute('data-theme', newTheme);
+              localStorage.setItem('theme', newTheme);
+              updateThemeIcon(newTheme);
+          });
+
+          function updateThemeIcon(theme) {
+              const icon = themeToggle.querySelector('i');
+              if (theme === 'dark') {
+                  icon.className = 'fas fa-sun';
+              } else {
+                  icon.className = 'fas fa-moon';
+              }
+          }
+      });
+  </script>
 
 </body>
 </html>

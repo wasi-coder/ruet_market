@@ -5,152 +5,287 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sell/Rent Product - RUET Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            background: #0f0f0f;
+        }
+
         .post-container {
             max-width: 800px;
             margin: 80px auto 2rem auto;
             padding: 0 20px;
         }
-        
+
         .post-header {
             text-align: center;
             margin-bottom: 2rem;
             padding: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 16px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border-radius: 8px;
+            border: 2px solid #4682B4;
+            box-shadow: 4px 4px 0px #000;
         }
-        
+
         .post-header h1 {
-            font-size: 2.5rem;
+            font-family: 'Press Start 2P', cursive;
+            color: #4ecdc4;
+            text-shadow: 2px 2px 0px #000;
             margin-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
-        
+
+        .post-header p {
+            color: #aaa;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+        }
+
         .post-form {
-            background: white;
+            background: #1a1a1a;
             padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px #000;
+            border: 2px solid #333;
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #374151;
+            color: #e0e0e0;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
         }
-        
+
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 0.75rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
+            border: 2px solid #333;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: #2d2d2d;
+            color: #e0e0e0;
+            box-shadow: 2px 2px 0px #000;
             transition: border-color 0.3s ease;
         }
-        
+
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: #4682B4;
         }
-        
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
-        
+
         .form-group textarea {
             resize: vertical;
             min-height: 120px;
         }
-        
+
         .submit-btn {
             width: 100%;
             padding: 1rem;
-            background: #2563eb;
+            background: #4682B4;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border: 2px solid #333;
+            border-radius: 4px;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            font-family: 'Press Start 2P', cursive;
+            box-shadow: 2px 2px 0px #000;
+            transition: all 0.2s ease;
         }
-        
+
         .submit-btn:hover {
-            background: #1d4ed8;
+            background: #5a9bd4;
         }
-        
+
         .submit-btn:disabled {
-            background: #9ca3af;
+            background: #666;
             cursor: not-allowed;
         }
-        
+
         .message {
             margin-top: 1rem;
             padding: 1rem;
             border-radius: 8px;
             text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
         }
-        
+
         .message.success {
-            background: #d1fae5;
-            color: #065f46;
-            border: 1px solid #10b981;
+            background: #1a4d3a;
+            color: #4ecdc4;
+            border: 1px solid #4ecdc4;
         }
-        
+
         .message.error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #ef4444;
+            background: #4d1a1a;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
         }
-        
+
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: #64748b;
+            color: #aaa;
             text-decoration: none;
             margin-bottom: 1rem;
             font-weight: 500;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
         }
-        
+
         .back-link:hover {
-            color: #2563eb;
+            color: #4ecdc4;
         }
-        
+
+        .image-upload-area {
+            border: 2px dashed #333;
+            border-radius: 4px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            background: #2d2d2d;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .image-upload-area:hover,
+        .image-upload-area.dragover {
+            border-color: #4682B4;
+            background: #333;
+        }
+
+        .upload-content i {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-content p {
+            margin: 0;
+            color: #aaa;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+        }
+
+        .upload-link {
+            color: #4ecdc4;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .upload-content small {
+            color: #666;
+            font-size: 0.5rem;
+            margin: 0.5rem 0 0 0;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .image-preview {
+            position: relative;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0px #000;
+            border: 2px solid #333;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border: 2px solid #333;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .remove-image:hover {
+            background: #dc2626;
+        }
+
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .image-upload-area {
+                padding: 1.5rem;
+            }
+
+            .upload-content i {
+                font-size: 1.5rem;
+            }
+
+            .post-header h1 {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-store"></i>
-                <span>RUET Marketplace</span>
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-store"></i>
+                    <span>RUET Marketplace</span>
+                </a>
             </div>
-            <div class="nav-menu">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="products.html" class="nav-link">Products</a>
+                <a href="index.html#categories" class="nav-link">Categories</a>
+                <a href="index.html#departments" class="nav-link">Departments</a>
                 <a href="post-product.html" class="nav-link">Sell/Rent</a>
+                <a href="buy-requests.html" class="nav-link">Buy Requests</a>
             </div>
-            <div class="nav-auth">
-                <a href="login.html" class="btn btn-outline">Login</a>
-                <a href="register.html" class="btn btn-primary">Register</a>
+            <div class="nav-auth" id="navAuth">
+                <!-- This will be populated by JavaScript -->
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -236,10 +371,23 @@
                         <option value="Used">Used</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="image">Image URL (optional)</label>
-                    <input type="url" id="image" name="image" placeholder="https://example.com/image.jpg">
+                    <label for="image">Product Image (optional)</label>
+                    <div class="image-upload-area" id="imageUploadArea">
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop an image here or <span class="upload-link">browse</span></p>
+                            <small>Supported formats: JPG, PNG, GIF (max 5MB)</small>
+                        </div>
+                        <input type="file" id="imageFile" name="image" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview">
+                        <button type="button" class="remove-image" id="removeImage">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -257,9 +405,41 @@
         <div id="productsGrid"></div>                     
 
     </div>
+    <script src="js/auth.js"></script>
     <script src="js/navbar.js"></script>
 
     <script src="js/post-product.js"></script>
+
+    <script>
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+
+            // Set initial theme
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            updateThemeIcon(currentTheme);
+
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                const icon = themeToggle.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
+        });
+    </script>
    
 
 

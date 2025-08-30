@@ -9,23 +9,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const existingUserNav = document.getElementById('userNav');
     if (existingUserNav) existingUserNav.remove();
 
-    if (currentUser) {
-        const userNav = document.createElement('div');
-        userNav.id = 'userNav';
-        userNav.style.display = 'flex';
-        userNav.style.alignItems = 'center';
-        userNav.style.gap = '1rem';
+    // Removed hello username and logout functionality as per requirements
+    // User authentication handled by auth.js with dropdown in specific pages
 
-        userNav.innerHTML = `
-            <span>Hello, ${currentUser.name}</span>
-            <button id="logoutBtn" class="btn btn-outline">Logout</button>
-        `;
+    // ===== Hamburger Menu Functionality =====
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
 
-        navContainer.appendChild(userNav);
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('currentUser');
-            window.location.reload();
+        // Close menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         });
     }
 });

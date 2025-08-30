@@ -2,22 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Buy Requests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Buy Requests - RUET Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header>
-        <h1>RUET Marketplace</h1>
-        <nav>
-            <a href="index.html">Home</a>
-        </nav>
-    </header>
-    <main>
-        <h2>Buy Requests</h2>
-        <div id="buy-requests"></div>
-    </main>
+<body style="background: #0f0f0f;">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-store"></i>
+                    <span>RUET Marketplace</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#categories" class="nav-link">Categories</a>
+                <a href="index.html#departments" class="nav-link">Departments</a>
+                <a href="post-product.html" class="nav-link">Sell/Rent</a>
+                <a href="buy-requests.html" class="nav-link">Buy Requests</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <!-- This will be populated by JavaScript -->
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+        <div class="post-header" style="text-align: center; margin-bottom: 2rem; padding: 2rem; background: #1a1a1a; color: #e0e0e0; border-radius: 8px; border: 2px solid #4682B4; box-shadow: 4px 4px 0px #000;">
+            <h1 style="font-family: 'Press Start 2P', cursive; color: #4ecdc4; text-shadow: 2px 2px 0px #000; margin-bottom: 0.5rem;"><i class="fas fa-list" style="color: #4682B4;"></i> Buy Requests</h1>
+            <p style="color: #aaa; font-family: 'Press Start 2P', cursive; font-size: 0.8rem;">Find what others are looking for</p>
+            <div style="margin-top: 1.5rem;">
+                <a href="buy-request.html" style="background: #4682B4; color: white; border: 2px solid #333; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block; font-family: 'Press Start 2P', cursive; font-size: 0.7rem; box-shadow: 2px 2px 0px #000; transition: all 0.2s ease;">
+                    <i class="fas fa-plus"></i> Post Buy Request
+                </a>
+            </div>
+        </div>
+
+        <div id="buy-requests" style="max-width: 800px; margin: 0 auto;">
+            <div class="loading" style="text-align: center; padding: 3rem;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem; color: #4682B4;"></i>
+                <p>Loading buy requests...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
     <script src="js/buy-requests.js"></script>
     <script src="js/navbar.js"></script>
+    <script>
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'light';
 
+            // Set initial theme
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            updateThemeIcon(currentTheme);
+
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                const icon = themeToggle.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
+        });
+    </script>
 </body>
 </html>

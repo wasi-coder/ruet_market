@@ -432,14 +432,47 @@
         }
 
         // Edit product
-        function editProduct(productId) {
-            alert('Product editing feature coming soon!');
+        async function editProduct(productId) {
+            try {
+                // Get product details
+                const response = await fetch(`http://localhost:3001/api/products/${productId}`);
+                const product = await response.json();
+
+                // Store product data in localStorage for the edit form
+                localStorage.setItem('editProduct', JSON.stringify(product));
+
+                // Redirect to post-product page with edit mode
+                window.location.href = 'post-product.html?edit=' + productId;
+            } catch (error) {
+                console.error('Error loading product for editing:', error);
+                alert('Error loading product details. Please try again.');
+            }
         }
 
         // Delete product
-        function deleteProduct(productId) {
-            if (confirm('Are you sure you want to delete this product?')) {
-                alert('Product deletion feature coming soon!');
+        async function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+                try {
+                    console.log('Attempting to delete product:', productId);
+                    const response = await fetch(`http://localhost:3001/api/products/${productId}`, {
+                        method: 'DELETE'
+                    });
+
+                    console.log('Delete response status:', response.status);
+                    const result = await response.json();
+                    console.log('Delete response:', result);
+
+                    if (response.ok) {
+                        alert('Product deleted successfully!');
+                        // Reload the products list
+                        loadMyProducts();
+                    } else {
+                        alert('Error deleting product: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error deleting product:', error);
+                    alert('Network error. Please check your connection and try again.');
+                }
             }
         }
 

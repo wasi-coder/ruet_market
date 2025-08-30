@@ -287,4 +287,10 @@ router.post('/test', async (req, res) => {
     }
 });
 
-module.exports = router;
+// Export notification functions for use in other routes
+module.exports = {
+    router,
+    sendEmailNotification,
+    sendSMSNotification,
+    getUserNotificationPreferences
+};

@@ -8,18 +8,24 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "mysql2": "^3.6.0",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "multer": "^2.0.2",
+    "mysql2": "^3.6.0",
     "nodemailer": "^6.9.4",
-    "twilio": "^4.12.0",
-    "dotenv": "^16.3.1"
+    "twilio": "^4.12.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
   },
-  "keywords": ["marketplace", "ruet", "nodejs", "express"],
+  "keywords": [
+    "marketplace",
+    "ruet",
+    "nodejs",
+    "express"
+  ],
   "author": "RUET Marketplace Team",
   "license": "MIT"
 }

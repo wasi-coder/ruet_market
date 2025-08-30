@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sell/Rent Product</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>RUET Marketplace</h1>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Sell or Rent a Product</h2>
+        <form id="product-form">
+            <input type="text" name="title" placeholder="Product Title" required /><br>
+            <textarea name="description" placeholder="Description" required></textarea><br>
+            <input type="number" name="price" placeholder="Price (BDT)" required /><br>
+            <select name="type" required>
+                <option value="sell">Sell</option>
+                <option value="rent">Rent</option>
+            </select><br>
+            <input type="text" name="image" placeholder="Image URL (optional)" /><br>
+            <button type="submit">Post Product</button>
+        </form>
+        <div id="product-msg"></div>
+    </main>
+    <script src="js/post-product.js"></script>
+</body>
+</html>

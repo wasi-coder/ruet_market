@@ -141,18 +141,26 @@ router.post('/product-update', async (req, res) => {
 
         // Send email notification if enabled
         if (user.email_notifications && user.email) {
-            const emailSent = await sendEmailNotification(
-                user.email,
-                'Product Update Notification',
-                message
-            );
-            if (emailSent) notificationsSent++;
+            try {
+                const emailSent = await sendEmailNotification(
+                    user.email,
+                    'Product Update Notification',
+                    message
+                );
+                if (emailSent) notificationsSent++;
+            } catch (err) {
+                console.error('Email failed, continuing without crash:', err);
+            }
         }
 
         // Send SMS notification if enabled
         if (user.sms_notifications && user.phone) {
-            const smsSent = await sendSMSNotification(user.phone, message);
-            if (smsSent) notificationsSent++;
+            try {
+                const smsSent = await sendSMSNotification(user.phone, message);
+                if (smsSent) notificationsSent++;
+            } catch (err) {
+                console.error('SMS failed, continuing without crash:', err);
+            }
         }
 
         // Log notification in database
@@ -172,6 +180,7 @@ router.post('/product-update', async (req, res) => {
         res.status(500).json({ error: 'Failed to send notification' });
     }
 });
+
 
 // Send welcome notification to new users
 router.post('/welcome', async (req, res) => {

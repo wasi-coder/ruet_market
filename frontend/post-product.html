@@ -166,7 +166,7 @@
             <p>List your items for other RUET students to buy or rent</p>
         </div>
         
-        <form class="post-form" id="productForm">
+        <form class="post-form" id="post-product-form">
             <div class="form-group">
                 <label for="title">Product Title *</label>
                 <input type="text" id="title" name="title" placeholder="e.g., Engineering Calculator, Data Structures Book" required>
@@ -220,6 +220,7 @@
                         <option value="Chemical">Chemical</option>
                         <option value="Industrial">Industrial</option>
                         <option value="Textile">Textile</option>
+                        <option value="All">All</option>
                     </select>
                 </div>
             </div>
@@ -252,9 +253,15 @@
             </button>
         </form>
         
-        <div id="message"></div>
+        <div id="post-msg"></div>                         
+        <div id="productsGrid"></div>                     
+
     </div>
+    <script src="js/navbar.js"></script>
 
     <script src="js/post-product.js"></script>
+   
+
+
 </body>
 </html>
